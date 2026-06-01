@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">ري7لتي — خطّط رحلتك المثالية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #f5ede0;
+    --terracotta: #c4613a;
+    --deep: #1a1208;
+    --gold: #d4a843;
+    --teal: #2d6e6e;
+    --cream: #faf6f0;
+    --muted: #8a7260;
+    --card-bg: rgba(255,255,255,0.72);
+    --border: rgba(196,97,58,0.18);
+    --shadow: 0 8px 40px rgba(26,18,8,0.10);
+    --font-primary: 'Tajawal', sans-serif;
+  }
+
+  html[lang="en"] {
+    --font-primary: 'Outfit', sans-serif;
+  }
+  html[lang="fr"] {
+    --font-primary: 'Outfit', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-primary), sans-serif;
+    background: var(--sand);
+    color: var(--deep);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: font-family 0.3s;
+  }
+
+  /* ——— BACKGROUND ——— */
+  .bg-layer {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 10%, rgba(212,168,67,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 70% at 85% 90%, rgba(45,110,110,0.14) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(196,97,58,0.08) 0%, transparent 60%);
+  }
+  .bg-pattern {
+    position: fixed; inset: 0; z-index: 0; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c4613a' fill-opacity='1'%3E%3Cpath d='M30 0l5 10H25zm0 60l5-10H25zM0 30l10 5V25zm60 0l-10 5V25z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* ——— HEADER ——— */
+  header {
+    position: relative; z-index: 10;
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    background: rgba(245,237,224,0.6);
+  }
+  .logo {
+    font-size: 2rem; font-weight: 900; letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--terracotta), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .logo span { font-style: italic; font-family: 'Playfair Display', serif; }
+  .tagline { font-size: 0.85rem; color: var(--muted); font-weight: 300; margin-top: 0.1rem; }
+
+  /* Language Switcher */
+  .lang-switcher {
+    display: flex;
+    gap: 0.3rem;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid var(--border);
+    padding: 0.25rem;
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
+  }
+  .lang-btn {
+    border: none;
+    background: transparent;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 50px;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: var(--terracotta);
+    color: white;
+    box-shadow: 0 2px 8px rgba(196,97,58,0.25);
+  }
+
+  /* ——— HERO ——— */
+  .hero {
+    position: relative; z-index: 5;
+    text-align: center; padding: 4.5rem 1.5rem 2.5rem;
+    animation: fadeDown 0.8s ease both;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 0.8rem;
+  }
+  .hero h1 em {
+    font-style: italic; font-family: 'Playfair Display', serif;
+    color: var(--terracotta);
+  }
+  .hero p { color: var(--muted); font-size: 1.1rem; font-weight: 300; }
+
+  /* ——— FORM CARD & STEPS ——— */
+  .container {
+    position: relative; z-index: 5;
+    max-width: 880px; margin: 0 auto; padding: 0 1.2rem 4rem;
+  }
+
+  .form-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.9s 0.15s ease both;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Expandable categories */
+  .form-section {
+    border: 1.5px solid rgba(196,97,58,0.15);
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  .form-section:focus-within {
+    border-color: var(--terracotta);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 4px 20px rgba(196,97,58,0.06);
+  }
+
+  .section-header {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: var(--terracotta);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(196,97,58,0.1);
+    padding-bottom: 0.5rem;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 0.82rem; font-weight: 700;
+    color: var(--muted); letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+  }
+  html[dir="rtl"] label .icon { margin-left: 0.4rem; }
+  html[dir="ltr"] label .icon { margin-right: 0.4rem; }
+
+  input, select, textarea {
+    font-family: var(--font-primary), sans-serif;
+    font-size: 1rem; font-weight: 400;
+    background: rgba(255,255,255,0.85);
+    border: 1.5px solid rgba(196,97,58,0.2);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    color: var(--deep);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--terracotta);
+    box-shadow: 0 0 0 3px rgba(196,97,58,0.12);
+  }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  select { cursor: pointer; }
+
+  /* Budget slider */
+  .budget-wrap { display: flex; align-items: center; gap: 1rem; }
+  input[type=range] {
+    flex: 1; padding: 0; border: none; background: transparent;
+    -webkit-appearance: none; height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--terracotta) 0%, var(--gold) 100%);
+    box-shadow: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--terracotta);
+    border: 2.5px solid white;
+    box-shadow: 0 2px 8px rgba(196,97,58,0.35);
+    cursor: pointer;
+  }
+  .budget-val {
+    min-width: 90px; text-align: center;
+    background: var(--terracotta); color: white;
+    font-weight: 700; font-size: 0.9rem;
+    padding: 0.35rem 0.75rem; border-radius: 8px;
+    white-space: nowrap;
+  }
+
+  /* Checkboxes & Multi-select chips */
+  .interests-grid, .chips-grid {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+  }
+  .interest-chip, .multi-chip {
+    display: flex; align-items: center; gap: 0.4rem;
+    cursor: pointer;
+  }
+  .interest-chip input, .multi-chip input { display: none; }
+  .interest-chip span, .multi-chip span {
+    padding: 0.45rem 1rem;
+    border-radius: 50px;
+    border: 1.5px solid rgba(196,97,58,0.22);
+    font-size: 0.88rem; font-weight: 500;
+    color: var(--muted);
+    transition: all 0.18s;
+    background: white;
+  }
+  .interest-chip input:checked + span, .multi-chip input:checked + span {
+    background: var(--terracotta); color: white;
+    border-color: var(--terracotta);
+    box-shadow: 0 3px 10px rgba(196,97,58,0.3);
+  }
+  .interest-chip span:hover, .multi-chip span:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+  /* Age Groups Checkbox styling */
+  .age-grid {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1.5px solid rgba(196,97,58,0.15);
+  }
+  .age-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .age-item input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+  }
+
+  /* ——— SUBMIT BUTTON ——— */
+  .btn-plan {
+    width: 100%; padding: 1.2rem;
+    font-family: var(--font-primary), sans-serif;
+    font-size: 1.25rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--terracotta) 0%, #a84e2d 100%);
+    color: white; border: none; border-radius: 14px;
+    cursor: pointer; letter-spacing: 0.03em;
+    box-shadow: 0 6px 24px rgba(196,97,58,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative; overflow: hidden;
+  }
+  .btn-plan:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(196,97,58,0.45); }
+  .btn-plan:active { transform: translateY(0); }
+  .btn-plan:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .btn-plan .btn-inner { display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+
+  /* ——— LOADING ——— */
+  .loading-section {
+    display: none; text-align: center; padding: 3rem 1rem;
+    animation: fadeUp 0.4s ease both;
+  }
+  .loader {
+    width: 56px; height: 56px; margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    border: 4px solid rgba(196,97,58,0.15);
+    border-top-color: var(--terracotta);
+    animation: spin 0.8s linear infinite;
+  }
+  .loading-section p { color: var(--muted); font-size: 1rem; }
+  .loading-dots span {
+    animation: blink 1.2s infinite;
+    display: inline-block;
+  }
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  /* ——— RESULT ——— */
+  .result-section {
+    display: none; margin-top: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .result-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .result-header {
+    background: linear-gradient(135deg, var(--terracotta), #8b3d22);
+    color: white; padding: 1.5rem 2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .result-header h2 { font-size: 1.4rem; font-weight: 700; }
+  .result-header .dest-badge {
+    background: rgba(255,255,255,0.2); padding: 0.3rem 0.8rem;
+    border-radius: 50px; font-size: 0.85rem; font-weight: 500;
+  }
+  .result-body {
+    padding: 2rem;
+    font-size: 1rem; line-height: 1.9;
+    color: var(--deep);
+  }
+  /* Markdown-like styling for result */
+  .result-body h2, .result-body h3 {
+    color: var(--terracotta); margin: 1.5rem 0 0.5rem;
+    font-weight: 700;
+  }
+  .result-body h2 { font-size: 1.25rem; }
+  .result-body h3 { font-size: 1.05rem; }
+  .result-body p { margin-bottom: 0.6rem; }
+  .result-body ul, .result-body ol { margin-bottom: 0.8rem; }
+  html[dir="rtl"] .result-body ul, html[dir="rtl"] .result-body ol { padding-right: 1.5rem; }
+  html[dir="ltr"] .result-body ul, html[dir="ltr"] .result-body ol { padding-left: 1.5rem; }
+  .result-body li { margin-bottom: 0.3rem; }
+  .result-body strong { color: var(--terracotta); }
+  .result-body em { color: var(--teal); }
+  .result-body hr { border: none; border-top: 1px solid var(--border); margin: 1.2rem 0; }
+  .result-body blockquote {
+    padding: 0.5rem 1rem; margin: 1rem 0;
+    color: var(--muted); font-style: italic;
+    background: rgba(196,97,58,0.05);
+  }
+  html[dir="rtl"] .result-body blockquote { border-right: 3px solid var(--gold); }
+  html[dir="ltr"] .result-body blockquote { border-left: 3px solid var(--gold); }
+
+  .result-actions {
+    padding: 1rem 2rem 1.5rem;
+    display: flex; gap: 0.8rem; flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+  }
+  .btn-secondary {
+    padding: 0.65rem 1.3rem;
+    background: white; color: var(--terracotta);
+    border: 1.5px solid var(--terracotta);
+    border-radius: 10px; font-family: var(--font-primary), sans-serif;
+    font-size: 0.92rem; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .btn-secondary:hover { background: var(--terracotta); color: white; }
+  .btn-new {
+    padding: 0.65rem 1.3rem;
+    background: var(--teal); color: white;
+    border: none; border-radius: 10px;
+    font-family: var(--font-primary), sans-serif;
+    font-size: 0.92rem; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .btn-new:hover { opacity: 0.88; }
+
+  /* ——— ERROR ——— */
+  .error-box {
+    display: none; margin-top: 1rem;
+    background: rgba(196,97,58,0.08);
+    border: 1px solid rgba(196,97,58,0.3);
+    border-radius: 12px; padding: 1rem 1.2rem;
+    color: var(--terracotta); font-size: 0.95rem;
+  }
+
+  /* ——— FOOTER ——— */
+  footer {
+    position: relative; z-index: 5;
+    text-align: center; padding: 2rem;
+    color: var(--muted); font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ——— ANIMATIONS ——— */
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:none; } }
+  @keyframes fadeUp   { from { opacity:0; transform:translateY(20px);  } to { opacity:1; transform:none; } }
+  @keyframes spin     { to { transform: rotate(360deg); } }
+  @keyframes blink    { 0%,80%,100%{opacity:0} 40%{opacity:1} }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    header { flex-direction: column; gap: 0.8rem; text-align: center; }
+    .result-header { flex-direction: column; align-items: flex-start; }
+    .form-card { padding: 1.5rem 1rem; }
+    .result-body { padding: 1.3rem 1rem; }
+  }
+</style>
+<script src="https://js.puter.com/v2/"></script>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="bg-pattern"></div>
+
+<header>
+  <div>
+    <div class="logo" id="logoText">ري<span>7</span>لتي</div>
+    <div class="tagline" id="appTagline">مساعدك الذكي لتخطيط الرحلات ✈️</div>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="lang-btn-ar" onclick="changeLang('ar')">العربية</button>
+    <button class="lang-btn" id="lang-btn-en" onclick="changeLang('en')">EN</button>
+    <button class="lang-btn" id="lang-btn-fr" onclick="changeLang('fr')">FR</button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1 id="heroTitle">وين تبي <em>تروح</em>؟<br>احنا نخطط معك 🌍</h1>
+  <p id="heroSub">أدخل تفاصيل رحلتك وخلّي الذكاء الاصطناعي يصنع لك خطة مثالية</p>
+</section>
+
+<div class="container">
+
+  <div class="form-card">
+    
+    <!-- SECTION 1: Trip Basics -->
+    <div class="form-section">
+      <div class="section-header" id="sec-basics">✈️ تفاصيل الرحلة الأساسية</div>
+      <div class="form-grid">
+        <!-- Origin -->
+        <div class="form-group">
+          <label id="lbl-origin"><span class="icon">🛫</span> بلد / مدينة الانطلاق</label>
+          <input type="text" id="origin" placeholder="الرياض، القاهرة، دبي..." />
+        </div>
+        <!-- Destination -->
+        <div class="form-group">
+          <label id="lbl-destination"><span class="icon">📍</span> الوجهة / البلد</label>
+          <input type="text" id="destination" placeholder="المغرب، إسطنبول، باريس..." />
+        </div>
+        <!-- Duration -->
+        <div class="form-group">
+          <label id="lbl-duration"><span class="icon">📅</span> عدد الأيام</label>
+          <select id="duration">
+            <option value="" id="opt-duration-placeholder">اختر المدة</option>
+            <option value="2 Jours (weekend)" id="opt-duration-2d">يومين (weekend)</option>
+            <option value="3 Jours" id="opt-duration-3d">3 أيام</option>
+            <option value="5 Jours" id="opt-duration-5d">5 أيام</option>
+            <option value="1 Semaine" id="opt-duration-1w">أسبوع كامل</option>
+            <option value="10 Jours" id="opt-duration-10d">10 أيام</option>
+            <option value="2 Semaines" id="opt-duration-2w">أسبوعين</option>
+            <option value="1 Mois" id="opt-duration-1m">شهر كامل</option>
+          </select>
+        </div>
+        <!-- Travel Season -->
+        <div class="form-group">
+          <label id="lbl-season"><span class="icon">🌤️</span> وقت السفر</label>
+          <select id="season">
+            <option value="" id="opt-season-placeholder">متى تبي تسافر؟</option>
+            <option value="Jan / Feb" id="opt-season-jf">يناير / فبراير</option>
+            <option value="Mar / Apr" id="opt-season-ma">مارس / أبريل</option>
+            <option value="May / Jun" id="opt-season-mj">مايو / يونيو</option>
+            <option value="Jul / Aug" id="opt-season-ja">يوليو / أغسطس</option>
+            <option value="Sep / Oct" id="opt-season-so">سبتمبر / أكتوبر</option>
+            <option value="Nov / Dec" id="opt-season-nd">نوفمبر / ديسمبر</option>
+            <option value="Flexible" id="opt-season-flex">مرن / أي وقت</option>
+          </select>
+        </div>
+        <!-- Trip Purpose -->
+        <div class="form-group full">
+          <label id="lbl-purpose"><span class="icon">🎯</span> الغرض من الرحلة</label>
+          <select id="purpose">
+            <option value="" id="opt-purpose-placeholder">اختر الغرض</option>
+            <option value="Leisure" id="opt-purpose-leisure">السياحة والاسترخاء (Leisure)</option>
+            <option value="Business" id="opt-purpose-business">العمل والمهام (Business)</option>
+            <option value="Honeymoon" id="opt-purpose-honeymoon">شهر عسل (Honeymoon)</option>
+            <option value="Family" id="opt-purpose-family">عائلي واستكشاف (Family)</option>
+            <option value="Adventure" id="opt-purpose-adventure">مغامرة وتحدي (Adventure)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: Travellers -->
+    <div class="form-section">
+      <div class="section-header" id="sec-travellers">👥 المسافرون والفئات العمرية</div>
+      <div class="form-grid">
+        <!-- Travelers count -->
+        <div class="form-group">
+          <label id="lbl-travelers"><span class="icon">👥</span> عدد المسافرين</label>
+          <select id="travelers">
+            <option value="" id="opt-travelers-placeholder">اختر</option>
+            <option value="Solo" id="opt-travelers-solo">وحدي (solo)</option>
+            <option value="Couple" id="opt-travelers-couple">زوجين (couple)</option>
+            <option value="3 People" id="opt-travelers-3p">3 أشخاص</option>
+            <option value="4-5 People" id="opt-travelers-45p">4–5 أشخاص</option>
+            <option value="6+ People" id="opt-travelers-6p">مجموعة كبيرة (+6)</option>
+            <option value="Family" id="opt-travelers-family">عائلة مع أطفال</option>
+          </select>
+        </div>
+        <!-- Age Groups -->
+        <div class="form-group">
+          <label id="lbl-ages"><span class="icon">👶</span> الفئات العمرية للمسافرين</label>
+          <div class="age-grid">
+            <label class="age-item"><input type="checkbox" value="Adults" id="chk-age-adults" checked> <span id="span-age-adults">بالغون</span></label>
+            <label class="age-item"><input type="checkbox" value="Children" id="chk-age-children"> <span id="span-age-children">أطفال</span></label>
+            <label class="age-item"><input type="checkbox" value="Seniors" id="chk-age-seniors"> <span id="span-age-seniors">كبار سن</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Accommodation specs -->
+    <div class="form-section">
+      <div class="section-header" id="sec-accommodation">🏠 مواصفات السكن والإقامة</div>
+      <div class="form-grid">
+        <!-- Stay Types (Multiple Choice Chips!) -->
+        <div class="form-group full">
+          <label id="lbl-accommodation"><span class="icon">🏨</span> أنواع السكن المفضلة (يمكنك اختيار أكثر من نوع)</label>
+          <div class="chips-grid" id="accommodationContainer">
+            <label class="multi-chip"><input type="checkbox" value="Airbnb"><span id="chk-stay-airbnb">إير بي إن بي (Airbnb)</span></label>
+            <label class="multi-chip"><input type="checkbox" value="Hostel"><span id="chk-stay-hostel">بيوت شباب (Hostels)</span></label>
+            <label class="multi-chip"><input type="checkbox" value="Riad"><span id="chk-stay-riad">رياض تقليدي (Riads)</span></label>
+            <label class="multi-chip"><input type="checkbox" value="Hotel"><span id="chk-stay-hotel">فنادق (Hotels)</span></label>
+            <label class="multi-chip"><input type="checkbox" value="Resort"><span id="chk-stay-resort">منتجعات (Resorts)</span></label>
+            <label class="multi-chip"><input type="checkbox" value="Boutique"><span id="chk-stay-boutique">فنادق بوتيك (Boutique)</span></label>
+            <label class="multi-chip"><input type="checkbox" value="Camping"><span id="chk-stay-camp">تخييم طبيعي (Camping)</span></label>
+          </div>
+        </div>
+        <!-- Preferred Location -->
+        <div class="form-group">
+          <label id="lbl-location"><span class="icon">📍</span> موقع السكن المفضل</label>
+          <select id="location">
+            <option value="" id="opt-location-placeholder">اختر موقعاً</option>
+            <option value="City Centre" id="opt-location-centre">وسط المدينة (City Centre)</option>
+            <option value="Beach" id="opt-location-beach">على البحر / الشاطئ (Beach)</option>
+            <option value="Countryside" id="opt-location-country">الريف / الطبيعة (Countryside)</option>
+            <option value="Quiet Area" id="opt-location-quiet">منطقة سكنية هادئة (Quiet Area)</option>
+          </select>
+        </div>
+        <!-- Quality / Rating -->
+        <div class="form-group">
+          <label id="lbl-rating"><span class="icon">⭐</span> تصنيف الإقامة وجودتها</label>
+          <select id="rating">
+            <option value="" id="opt-rating-placeholder">اختر درجة الجودة</option>
+            <option value="Budget / Economical" id="opt-rating-budget">اقتصادي / منخفض التكلفة</option>
+            <option value="3-Star" id="opt-rating-3s">3 نجوم (Standard)</option>
+            <option value="4-Star" id="opt-rating-4s">4 نجوم (Premium)</option>
+            <option value="5-Star" id="opt-rating-5s">5 نجوم (Luxury)</option>
+            <option value="Ultra Luxury" id="opt-rating-ultra">فخامة فائقة (Ultra Luxury)</option>
+          </select>
+        </div>
+        <!-- Must-Have Amenities (Multiple Choice Chips) -->
+        <div class="form-group full">
+          <label id="lbl-amenities"><span class="icon">🏊</span> التسهيلات والخدمات الأساسية في الإقامة</label>
+          <div class="chips-grid" id="amenitiesContainer">
+            <label class="multi-chip"><input type="checkbox" value="Pool"><span id="chk-amenity-pool">🏊 مسبح (Pool)</span></label>
+            <label class="multi-chip"><input type="checkbox" value="Gym"><span id="chk-amenity-gym">🏋️ ناد رياضي (Gym)</span></label>
+            <label class="multi-chip"><input type="checkbox" value="Kitchen"><span id="chk-amenity-kitchen">🍳 مطبخ كامل (Kitchen)</span></label>
+            <label class="multi-chip"><input type="checkbox" value="Parking"><span id="chk-amenity-parking">🚗 موقف سيارات (Parking)</span></label>
+            <label class="multi-chip"><input type="checkbox" value="Wi-Fi"><span id="chk-amenity-wifi">📶 واي فاي مجاني (Wi-Fi)</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Interests & Notes -->
+    <div class="form-section">
+      <div class="section-header" id="sec-interests">❤️ اهتماماتك وملاحظاتك الخاصة</div>
+      <div class="form-grid">
+        <!-- Budget -->
+        <div class="form-group full">
+          <label id="lbl-budget"><span class="icon">💰</span> الميزانية التقريبية (دولار للشخص)</label>
+          <div class="budget-wrap">
+            <input type="range" id="budget" min="100" max="10000" step="50" value="1000" oninput="updateBudget(this.value)" />
+            <div class="budget-val" id="budgetDisplay">1000 $</div>
+          </div>
+        </div>
+        <!-- Interests -->
+        <div class="form-group full">
+          <label id="lbl-interests"><span class="icon">❤️</span> اهتماماتك (اختر ما يناسبك)</label>
+          <div class="interests-grid" id="interestsContainer">
+            <label class="interest-chip"><input type="checkbox" value="🕌 تاريخ وثقافة"><span id="chk-interest-culture">🕌 تاريخ وثقافة</span></label>
+            <label class="interest-chip"><input type="checkbox" value="🍜 أكل وتجارب محلية"><span id="chk-interest-food">🍜 أكل وتجارب محلية</span></label>
+            <label class="interest-chip"><input type="checkbox" value="🏖️ شواطئ وبحر"><span id="chk-interest-beach">🏖️ شواطئ وبحر</span></label>
+            <label class="interest-chip"><input type="checkbox" value="🥾 مشي طبيعة وهايكينج"><span id="chk-interest-hike">🥾 هايكينج وطبيعة</span></label>
+            <label class="interest-chip"><input type="checkbox" value="🛍️ تسوق"><span id="chk-interest-shop">🛍️ تسوق</span></label>
+            <label class="interest-chip"><input type="checkbox" value="🎨 فن ومتاحف"><span id="chk-interest-art">🎨 فن ومتاحف</span></label>
+            <label class="interest-chip"><input type="checkbox" value="🎉 حياة ليلية"><span id="chk-interest-night">🎉 حياة ليلية</span></label>
+            <label class="interest-chip"><input type="checkbox" value="📸 تصوير ومناظر"><span id="chk-interest-photo">📸 تصوير ومناظر</span></label>
+            <label class="interest-chip"><input type="checkbox" value="🧘 رياضة وسبا"><span id="chk-interest-spa">🧘 رياضة وسبا</span></label>
+            <label class="interest-chip"><input type="checkbox" value="🏄 رياضات مائية"><span id="chk-interest-surf">🏄 رياضات مائية</span></label>
+          </div>
+        </div>
+        <!-- Travel Style -->
+        <div class="form-group full">
+          <label id="lbl-style"><span class="icon">🎭</span> أسلوب السفر</label>
+          <select id="style">
+            <option value="" id="opt-style-placeholder">اختر أسلوبك</option>
+            <option value="Budget" id="opt-style-budget">بجيت / اقتصادي</option>
+            <option value="Moderate" id="opt-style-moderate">متوسط / مريح</option>
+            <option value="Luxury" id="opt-style-luxury">لوكس / فاخر</option>
+            <option value="Adventure" id="opt-style-adventure">مغامرة وطبيعة</option>
+            <option value="Culture" id="opt-style-culture">ثقافي وتاريخي</option>
+            <option value="Beach" id="opt-style-beach">شواطئ وراحة</option>
+            <option value="Foodie" id="opt-style-food">مأكولات وتجارب محلية</option>
+          </select>
+        </div>
+        <!-- Extra notes -->
+        <div class="form-group full">
+          <label id="lbl-notes"><span class="icon">📝</span> تفاصيل وملاحظات إضافية (أوقات وصول، برامج ولاء، إلخ)</label>
+          <textarea id="notes" placeholder="مثلاً: تفضيل وقت وصول مبكر، تجنب الازدحام الشديد، رقم عضوية فندق معين..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="error-box" id="errorBox">⚠️ <span id="errorMsg"></span></div>
+
+    <button class="btn-plan" id="planBtn" onclick="planTrip()">
+      <span class="btn-inner" id="btnPlanText">✈️ خطّط رحلتي الآن</span>
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-section" id="loadingSection">
+    <div class="loader"></div>
+    <p id="loadText1">جاري تصميم رحلتك المثالية<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></p>
+    <p style="font-size:0.85rem; margin-top:0.5rem; color:var(--muted)" id="loadText2">يمكن يأخذ شوي وقت، اصبر علينا 😄</p>
+  </div>
+
+  <!-- Result -->
+  <div class="result-section" id="resultSection">
+    <div class="result-card">
+      <div class="result-header">
+        <div>
+          <h2 id="resultHeaderTitle">🗺️ خطة رحلتك</h2>
+          <div class="dest-badge" id="resultBadge"></div>
+        </div>
+      </div>
+      <div class="result-body" id="resultBody"></div>
+      <div class="result-actions">
+        <button class="btn-secondary" id="btnCopy" onclick="copyResult()">📋 نسخ الخطة</button>
+        <button class="btn-new" id="btnNew" onclick="newTrip()">✈️ رحلة جديدة</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer id="appFooter">
+  صُنع بـ ❤️ — مدعوم بالذكاء الاصطناعي عبر Puter.js
+</footer>
+
+<script>
+  let currentLang = 'ar';
+
+  const translations = {
+    ar: {
+      title: "ري7لتي — خطّط رحلتك المثالية",
+      logo: "ري<span>7</span>لتي",
+      tagline: "مساعدك الذكي لتخطيط الرحلات ✈️",
+      heroTitle: "وين تبي <em>تروح</em>؟<br>احنا نخطط معك 🌍",
+      heroSub: "أدخل تفاصيل رحلتك وخلّي الذكاء الاصطناعي يصنع لك خطة مثالية",
+      secBasics: "✈️ تفاصيل الرحلة الأساسية",
+      lblOrigin: "🛫 بلد / مدينة الانطلاق",
+      originPlaceholder: "الرياض، القاهرة، دبي...",
+      lblDestination: "📍 الوجهة / البلد",
+      destPlaceholder: "المغرب، إسطنبول، دبي، باريس...",
+      lblDuration: "📅 عدد الأيام",
+      optDurationPlaceholder: "اختر المدة",
+      optDuration2d: "يومين (weekend)",
+      optDuration3d: "3 أيام",
+      optDuration5d: "5 أيام",
+      optDuration1w: "أسبوع كامل",
+      optDuration10d: "10 أيام",
+      optDuration2w: "أسبوعين",
+      optDuration1m: "شهر كامل",
+      lblSeason: "🌤️ وقت السفر",
+      optSeasonPlaceholder: "متى تبي تسافر؟",
+      optSeasonJf: "يناير / فبراير",
+      optSeasonMa: "مارس / أبريل",
+      optSeasonMj: "مايو / يونيو",
+      optSeasonJa: "يوليو / أغسطس",
+      optSeasonSo: "سبتمبر / أكتوبر",
+      optSeasonNd: "نوفمبر / ديسمبر",
+      optSeasonFlex: "مرن / أي وقت",
+      lblPurpose: "🎯 الغرض من الرحلة",
+      optPurposePlaceholder: "اختر الغرض",
+      optPurposeLeisure: "السياحة والاسترخاء (Leisure)",
+      optPurposeBusiness: "العمل والمهام (Business)",
+      optPurposeHoneymoon: "شهر عسل (Honeymoon)",
+      optPurposeFamily: "عائلي واستكشاف (Family)",
+      optPurposeAdventure: "مغامرة وتحدي (Adventure)",
+      secTravellers: "👥 المسافرون والفئات العمرية",
+      lblTravelers: "👥 عدد المسافرين",
+      optTravelersPlaceholder: "اختر",
+      optTravelersSolo: "وحدي (solo)",
+      optTravelersCouple: "زوجين (couple)",
+      optTravelers3p: "3 أشخاص",
+      optTravelers45p: "4–5 أشخاص",
+      optTravelers6p: "مجموعة كبيرة (+6)",
+      optTravelersFamily: "عائلة مع أطفال",
+      lblAges: "👶 الفئات العمرية للمسافرين",
+      spanAgeAdults: "بالغون (Adults)",
+      spanAgeChildren: "أطفال (Children)",
+      spanAgeSeniors: "كبار سن (Seniors)",
+      secAccommodation: "🏠 مواصفات السكن والإقامة",
+      lblAccommodation: "🏨 أنواع السكن المفضلة (يمكنك اختيار أكثر من نوع)",
+      chkStayAirbnb: "إير بي إن بي (Airbnb)",
+      chkStayHostel: "بيوت شباب (Hostels)",
+      chkStayRiad: "رياض تقليدي (Riads)",
+      chkStayHotel: "فنادق (Hotels)",
+      chkStayResort: "منتجعات (Resorts)",
+      chkStayBoutique: "فنادق بوتيك (Boutique)",
+      chkStayCamp: "تخييم طبيعي (Camping)",
+      lblLocation: "📍 موقع السكن المفضل",
+      optLocationPlaceholder: "اختر موقعاً",
+      optLocationCentre: "وسط المدينة (City Centre)",
+      optLocationBeach: "على البحر / الشاطئ (Beach)",
+      optLocationCountry: "الريف / الطبيعة (Countryside)",
+      optLocationQuiet: "منطقة سكنية هادئة (Quiet Area)",
+      lblRating: "⭐ تصنيف الإقامة وجودتها",
+      optRatingPlaceholder: "اختر درجة الجودة",
+      optRatingBudget: "اقتصادي / منخفض التكلفة",
+      optRating3s: "3 نجوم (Standard)",
+      optRating4s: "4 نجوم (Premium)",
+      optRating5s: "5 نجوم (Luxury)",
+      optRatingUltra: "فخامة فائقة (Ultra Luxury)",
+      lblAmenities: "🏊 التسهيلات والخدمات الأساسية في الإقامة",
+      chkAmenityPool: "🏊 مسبح (Pool)",
+      chkAmenityGym: "🏋️ ناد رياضي (Gym)",
+      chkAmenityKitchen: "🍳 مطبخ كامل (Kitchen)",
+      chkAmenityParking: "🚗 موقف سيارات (Parking)",
+      chkAmenityWifi: "📶 واي فاي مجاني (Wi-Fi)",
+      secInterests: "❤️ اهتماماتك وملاحظاتك الخاصة",
+      lblBudget: "💰 الميزانية التقريبية (دولار للشخص)",
+      lblInterests: "❤️ اهتماماتك (اختر ما يناسبك)",
+      chkInterestCulture: "🕌 تاريخ وثقافة",
+      chkInterestFood: "🍜 أكل وتجارب محلية",
+      chkInterestBeach: "🏖️ شواطئ وبحر",
+      chkInterestHike: "🥾 هايكينج وطبيعة",
+      chkInterestShop: "🛍️ تسوق",
+      chkInterestArt: "🎨 فن ومتاحف",
+      chkInterestNight: "🎉 حياة ليلية",
+      chkInterestPhoto: "📸 تصوير ومناظر",
+      chkInterestSpa: "🧘 رياضة وسبا",
+      chkInterestSurf: "🏄 رياضات مائية",
+      lblStyle: "🎭 أسلوب السفر",
+      optStylePlaceholder: "اختر أسلوبك",
+      optStyleBudget: "بجيت / اقتصادي",
+      optStyleModerate: "متوسط / مريح",
+      optStyleLuxury: "لوكس / فاخر",
+      optStyleAdventure: "مغامرة وطبيعة",
+      optStyleCulture: "ثقافي وتاريخي",
+      optStyleBeach: "شواطئ وراحة",
+      optStyleFood: "مأكولات وتجارب محلية",
+      lblNotes: "📝 تفاصيل وملاحظات إضافية (أوقات وصول، برامج ولاء، إلخ)",
+      notesPlaceholder: "مثلاً: تفضيل وقت وصول مبكر، تجنب الازدحام الشديد، رقم عضوية فندق معين...",
+      btnPlanText: "✈️ خطّط رحلتي الآن",
+      loadText1: "جاري تصميم رحلتك المثالية",
+      loadText2: "يمكن يأخذ شوي وقت، اصبر علينا 😄",
+      resultHeaderTitle: "🗺️ خطة رحلتك",
+      btnCopy: "📋 نسخ الخطة",
+      btnCopySuccess: "✅ تم النسخ!",
+      btnNew: "✈️ رحلة جديدة",
+      footer: "صُنع بـ ❤️ — مدعوم بالذكاء الاصطناعي عبر Puter.js",
+      errorDest: "من فضلك اكتب وجهتك أولاً 📍",
+      errorDuration: "اختر عدد أيام رحلتك 📅",
+      errorGen: "حدث خطأ: "
+    },
+    en: {
+      title: "ri7lati — Plan your perfect trip",
+      logo: "ri<span>7</span>lati",
+      tagline: "Your smart trip planning assistant ✈️",
+      heroTitle: "Where do you want to <em>go</em>?<br>Let's plan together 🌍",
+      heroSub: "Enter your travel details and let AI design the perfect itinerary for you",
+      secBasics: "✈️ Trip Basics",
+      lblOrigin: "🛫 Departure City / Country",
+      originPlaceholder: "New York, London, Dubai...",
+      lblDestination: "📍 Destination / Country",
+      destPlaceholder: "Morocco, Istanbul, Dubai, Paris...",
+      lblDuration: "📅 Duration",
+      optDurationPlaceholder: "Select duration",
+      optDuration2d: "2 Days (weekend)",
+      optDuration3d: "3 Days",
+      optDuration5d: "5 Days",
+      optDuration1w: "1 Week",
+      optDuration10d: "10 Days",
+      optDuration2w: "2 Weeks",
+      optDuration1m: "1 Month",
+      lblSeason: "🌤️ Travel Season",
+      optSeasonPlaceholder: "When are you going?",
+      optSeasonJf: "Jan / Feb",
+      optSeasonMa: "Mar / Apr",
+      optSeasonMj: "May / Jun",
+      optSeasonJa: "Jul / Aug",
+      optSeasonSo: "Sep / Oct",
+      optSeasonNd: "Nov / Dec",
+      optSeasonFlex: "Flexible / Anytime",
+      lblPurpose: "🎯 Trip Purpose",
+      optPurposePlaceholder: "Select purpose",
+      optPurposeLeisure: "Tourism & Relaxation (Leisure)",
+      optPurposeBusiness: "Business & Work",
+      optPurposeHoneymoon: "Honeymoon",
+      optPurposeFamily: "Family & Kids trip",
+      optPurposeAdventure: "Adventure & Thrill",
+      secTravellers: "👥 Travellers & Ages",
+      lblTravelers: "👥 Travelers",
+      optTravelersPlaceholder: "Select",
+      optTravelersSolo: "Solo",
+      optTravelersCouple: "Couple",
+      optTravelers3p: "3 People",
+      optTravelers45p: "4–5 People",
+      optTravelers6p: "Large group (+6)",
+      optTravelersFamily: "Family with kids",
+      lblAges: "👶 Passenger Age Groups",
+      spanAgeAdults: "Adults",
+      spanAgeChildren: "Children",
+      spanAgeSeniors: "Seniors",
+      secAccommodation: "🏠 Accommodation Spec",
+      lblAccommodation: "🏨 Preferred Stays (Select multiple)",
+      chkStayAirbnb: "Airbnb",
+      chkStayHostel: "Hostels",
+      chkStayRiad: "Traditional Riads",
+      chkStayHotel: "Hotels",
+      chkStayResort: "Resorts",
+      chkStayBoutique: "Boutique Hotels",
+      chkStayCamp: "Nature Camping",
+      lblLocation: "📍 Preferred Location",
+      optLocationPlaceholder: "Select location",
+      optLocationCentre: "City Centre",
+      optLocationBeach: "Beachfront / Sea",
+      optLocationCountry: "Countryside / Nature",
+      optLocationQuiet: "Quiet Residential Area",
+      lblRating: "⭐ Accommodation Quality Level",
+      optRatingPlaceholder: "Select star rating",
+      optRatingBudget: "Budget / Economical",
+      optRating3s: "3-Star (Standard)",
+      optRating4s: "4-Star (Premium)",
+      optRating5s: "5-Star (Luxury)",
+      optRatingUltra: "Ultra Luxury",
+      lblAmenities: "🏊 Must-Have Stay Amenities",
+      chkAmenityPool: "🏊 Pool",
+      chkAmenityGym: "🏋️ Gym",
+      chkAmenityKitchen: "🍳 Full Kitchen",
+      chkAmenityParking: "🚗 Parking",
+      chkAmenityWifi: "📶 Free Wi-Fi",
+      secInterests: "❤️ Interests & Extras",
+      lblBudget: "💰 Approx. Budget ($ per person)",
+      lblInterests: "❤️ Your Interests (select any)",
+      chkInterestCulture: "🕌 Culture & History",
+      chkInterestFood: "🍜 Local Food & Dining",
+      chkInterestBeach: "🏖️ Beaches & Sea",
+      chkInterestHike: "🥾 Hiking & Nature",
+      chkInterestShop: "🛍️ Shopping",
+      chkInterestArt: "🎨 Art & Museums",
+      chkInterestNight: "🎉 Nightlife",
+      chkInterestPhoto: "📸 Photography & Views",
+      chkInterestSpa: "🧘 Wellness & Spa",
+      chkInterestSurf: "🏄 Water Sports",
+      lblStyle: "🎭 Travel Style",
+      optStylePlaceholder: "Select style",
+      optStyleBudget: "Budget / Economical",
+      optStyleModerate: "Moderate / Comfortable",
+      optStyleLuxury: "Luxury / Premium",
+      optStyleAdventure: "Adventure & Nature",
+      optStyleCulture: "Cultural & Historical",
+      optStyleBeach: "Beaches & Relaxation",
+      optStyleFood: "Food & Local experiences",
+      lblNotes: "📝 Extra Details & Notes (Loyalty plans, flight timing...)",
+      notesPlaceholder: "e.g. Early check-in preference, loyalty program ID, avoid highly crowded hours...",
+      btnPlanText: "✈️ Plan My Trip Now",
+      loadText1: "Designing your perfect itinerary",
+      loadText2: "This might take a brief moment, thanks for waiting 😄",
+      resultHeaderTitle: "🗺️ Your Itinerary",
+      btnCopy: "📋 Copy Plan",
+      btnCopySuccess: "✅ Copied!",
+      btnNew: "✈️ New Trip",
+      footer: "Made with ❤️ — Powered by AI via Puter.js",
+      errorDest: "Please enter your destination first 📍",
+      errorDuration: "Select your trip duration 📅",
+      errorGen: "An error occurred: "
+    },
+    fr: {
+      title: "ri7lati — Planifiez votre voyage parfait",
+      logo: "ri<span>7</span>lati",
+      tagline: "Votre assistant intelligent de voyage ✈️",
+      heroTitle: "Où voulez-vous <em>aller</em>?<br>Planifions ensemble 🌍",
+      heroSub: "Entrez les détails de votre voyage et laissez l'IA concevoir l'itinéraire parfait",
+      secBasics: "✈️ Informations de Base",
+      lblOrigin: "🛫 Ville / Pays de Départ",
+      originPlaceholder: "Paris, Lyon, Montréal...",
+      lblDestination: "📍 Destination / Pays",
+      destPlaceholder: "Maroc, Istanbul, Dubaï, Paris...",
+      lblDuration: "📅 Durée",
+      optDurationPlaceholder: "Choisir la durée",
+      optDuration2d: "2 Jours (weekend)",
+      optDuration3d: "3 Jours",
+      optDuration5d: "5 Jours",
+      optDuration1w: "1 Semaine",
+      optDuration10d: "10 Jours",
+      optDuration2w: "2 Semaines",
+      optDuration1m: "1 Mois",
+      lblSeason: "🌤️ Saison de voyage",
+      optSeasonPlaceholder: "Quand partez-vous?",
+      optSeasonJf: "Jan / Fév",
+      optSeasonMa: "Mar / Avr",
+      optSeasonMj: "Mai / Juin",
+      optSeasonJa: "Juil / Août",
+      optSeasonSo: "Sep / Oct",
+      optSeasonNd: "Nov / Déc",
+      optSeasonFlex: "Flexible / N'importe quand",
+      lblPurpose: "🎯 But du voyage",
+      optPurposePlaceholder: "Sélectionnez le but",
+      optPurposeLeisure: "Tourisme & Détente (Leisure)",
+      optPurposeBusiness: "Affaires & Travail",
+      optPurposeHoneymoon: "Lune de miel",
+      optPurposeFamily: "Famille & Enfants",
+      optPurposeAdventure: "Aventure & Frissons",
+      secTravellers: "👥 Voyageurs & Âges",
+      lblTravelers: "👥 Voyageurs",
+      optTravelersPlaceholder: "Choisir",
+      optTravelersSolo: "Solo",
+      optTravelersCouple: "Couple",
+      optTravelers3p: "3 Personnes",
+      optTravelers45p: "4–5 Personnes",
+      optTravelers6p: "Grand groupe (+6)",
+      optTravelersFamily: "Famille avec enfants",
+      lblAges: "👶 Catégories d'âges des voyageurs",
+      spanAgeAdults: "Adultes",
+      spanAgeChildren: "Enfants",
+      spanAgeSeniors: "Seniors",
+      secAccommodation: "🏠 Détails d'Hébergement",
+      lblAccommodation: "🏨 Hébergements préférés (Choix multiples)",
+      chkStayAirbnb: "Airbnb",
+      chkStayHostel: "Auberges de jeunesse (Hostels)",
+      chkStayRiad: "Riads Traditionnels",
+      chkStayHotel: "Hôtels",
+      chkStayResort: "Complexes hôteliers (Resorts)",
+      chkStayBoutique: "Hôtels Boutiques",
+      chkStayCamp: "Camping nature",
+      lblLocation: "📍 Emplacement Préféré",
+      optLocationPlaceholder: "Sélectionnez l'emplacement",
+      optLocationCentre: "Centre-ville",
+      optLocationBeach: "Au bord de la mer / Plage",
+      optLocationCountry: "Campagne / Nature",
+      optLocationQuiet: "Quartier résidentiel calme",
+      lblRating: "⭐ Qualité & Catégorie d'hébergement",
+      optRatingPlaceholder: "Sélectionnez les étoiles",
+      optRatingBudget: "Budget / Économique",
+      optRating3s: "3 étoiles (Standard)",
+      optRating4s: "4 étoiles (Premium)",
+      optRating5s: "5 étoiles (Luxe)",
+      optRatingUltra: "Ultra Luxe",
+      lblAmenities: "🏊 Commodités d'hébergement requises",
+      chkAmenityPool: "🏊 Piscine",
+      chkAmenityGym: "🏋️ Salle de sport",
+      chkAmenityKitchen: "🍳 Cuisine complète",
+      chkAmenityParking: "🚗 Parking gratuit",
+      chkAmenityWifi: "📶 Wi-Fi gratuit",
+      secInterests: "❤️ Intérêts & Extras",
+      lblBudget: "💰 Budget approx. ($ par personne)",
+      lblInterests: "❤️ Vos Intérêts (sélectionnez)",
+      chkInterestCulture: "🕌 Culture & Histoire",
+      chkInterestFood: "🍜 Cuisine & Spécialités locales",
+      chkInterestBeach: "🏖️ Plages & Mer",
+      chkInterestHike: "🥾 Randonnée & Nature",
+      chkInterestShop: "🛍️ Shopping",
+      chkInterestArt: "🎨 Art & Musées",
+      chkInterestNight: "🎉 Vie nocturne",
+      chkInterestPhoto: "📸 Photographie & Panoramas",
+      chkInterestSpa: "🧘 Bien-être & Spa",
+      chkInterestSurf: "🏄 Sports nautiques",
+      lblStyle: "🎭 Style de voyage",
+      optStylePlaceholder: "Choisir le style",
+      optStyleBudget: "Budget / Économique",
+      optStyleModerate: "Modéré / Confortable",
+      optStyleLuxury: "Luxe / Premium",
+      optStyleAdventure: "Aventure & Nature",
+      optStyleCulture: "Culturel & Historique",
+      optStyleBeach: "Plages & Détente",
+      optStyleFood: "Gastronomie & Expériences locales",
+      lblNotes: "📝 Détails supplémentaires & Notes (Programmes de fidélité, horaires...)",
+      notesPlaceholder: "ex: Enregistrement anticipé souhaité, numéro de fidélité hôtelière, éviter les affluences...",
+      btnPlanText: "✈️ Planifier Mon Voyage",
+      loadText1: "Conception de votre itinéraire parfait",
+      loadText2: "Cela peut prendre un court instant, merci pour votre patience 😄",
+      resultHeaderTitle: "🗺️ Votre Itinéraire",
+      btnCopy: "📋 Copier le plan",
+      btnCopySuccess: "✅ Copié !",
+      btnNew: "✈️ Nouveau voyage",
+      footer: "Fait avec ❤️ — Propulsé par l'IA via Puter.js",
+      errorDest: "Veuillez entrer votre destination d'abord 📍",
+      errorDuration: "Sélectionnez la durée du voyage 📅",
+      errorGen: "Une erreur est survenue : "
+    }
+  };
+
+  function changeLang(lang) {
+    currentLang = lang;
+    
+    // Update HTML attributes
+    document.documentElement.setAttribute('lang', lang);
+    if (lang === 'ar') {
+      document.documentElement.setAttribute('dir', 'rtl');
+    } else {
+      document.documentElement.setAttribute('dir', 'ltr');
+    }
+
+    // Toggle active state on buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`lang-btn-${lang}`).classList.add('active');
+
+    // Update static texts
+    document.getElementById('pageTitle').textContent = translations[lang].title;
+    document.getElementById('logoText').innerHTML = translations[lang].logo;
+    document.getElementById('appTagline').textContent = translations[lang].tagline;
+    document.getElementById('heroTitle').innerHTML = translations[lang].heroTitle;
+    document.getElementById('heroSub').textContent = translations[lang].heroSub;
+    
+    // Sections headers
+    document.getElementById('sec-basics').textContent = translations[lang].secBasics;
+    document.getElementById('sec-travellers').textContent = translations[lang].secTravellers;
+    document.getElementById('sec-accommodation').textContent = translations[lang].secAccommodation;
+    document.getElementById('sec-interests').textContent = translations[lang].secInterests;
+
+    // Category 1 inputs
+    document.getElementById('lbl-origin').innerHTML = `<span class="icon">🛫</span> ` + translations[lang].lblOrigin.replace('🛫 ', '');
+    document.getElementById('origin').placeholder = translations[lang].originPlaceholder;
+    document.getElementById('lbl-destination').innerHTML = `<span class="icon">📍</span> ` + translations[lang].lblDestination.replace('📍 ', '');
+    document.getElementById('destination').placeholder = translations[lang].destPlaceholder;
+
+    document.getElementById('lbl-duration').innerHTML = `<span class="icon">📅</span> ` + translations[lang].lblDuration.replace('📅 ', '');
+    document.getElementById('opt-duration-placeholder').textContent = translations[lang].optDurationPlaceholder;
+    document.getElementById('opt-duration-2d').textContent = translations[lang].optDuration2d;
+    document.getElementById('opt-duration-3d').textContent = translations[lang].optDuration3d;
+    document.getElementById('opt-duration-5d').textContent = translations[lang].optDuration5d;
+    document.getElementById('opt-duration-1w').textContent = translations[lang].optDuration1w;
+    document.getElementById('opt-duration-10d').textContent = translations[lang].optDuration10d;
+    document.getElementById('opt-duration-2w').textContent = translations[lang].optDuration2w;
+    document.getElementById('opt-duration-1m').textContent = translations[lang].optDuration1m;
+
+    document.getElementById('lbl-season').innerHTML = `<span class="icon">🌤️</span> ` + translations[lang].lblSeason.replace('🌤️ ', '');
+    document.getElementById('opt-season-placeholder').textContent = translations[lang].optSeasonPlaceholder;
+    document.getElementById('opt-season-jf').textContent = translations[lang].optSeasonJf;
+    document.getElementById('opt-season-ma').textContent = translations[lang].optSeasonMa;
+    document.getElementById('opt-season-mj').textContent = translations[lang].optSeasonMj;
+    document.getElementById('opt-season-ja').textContent = translations[lang].optSeasonJa;
+    document.getElementById('opt-season-so').textContent = translations[lang].optSeasonSo;
+    document.getElementById('opt-season-nd').textContent = translations[lang].optSeasonNd;
+    document.getElementById('opt-season-flex').textContent = translations[lang].optSeasonFlex;
+
+    document.getElementById('lbl-purpose').innerHTML = `<span class="icon">🎯</span> ` + translations[lang].lblPurpose.replace('🎯 ', '');
+    document.getElementById('opt-purpose-placeholder').textContent = translations[lang].optPurposePlaceholder;
+    document.getElementById('opt-purpose-leisure').textContent = translations[lang].optPurposeLeisure;
+    document.getElementById('opt-purpose-business').textContent = translations[lang].optPurposeBusiness;
+    document.getElementById('opt-purpose-honeymoon').textContent = translations[lang].optPurposeHoneymoon;
+    document.getElementById('opt-purpose-family').textContent = translations[lang].optPurposeFamily;
+    document.getElementById('opt-purpose-adventure').textContent = translations[lang].optPurposeAdventure;
+
+    // Category 2 inputs
+    document.getElementById('lbl-travelers').innerHTML = `<span class="icon">👥</span> ` + translations[lang].lblTravelers.replace('👥 ', '');
+    document.getElementById('opt-travelers-placeholder').textContent = translations[lang].optTravelersPlaceholder;
+    document.getElementById('opt-travelers-solo').textContent = translations[lang].optTravelersSolo;
+    document.getElementById('opt-travelers-couple').textContent = translations[lang].optTravelersCouple;
+    document.getElementById('opt-travelers-3p').textContent = translations[lang].optTravelers3p;
+    document.getElementById('opt-travelers-45p').textContent = translations[lang].optTravelers45p;
+    document.getElementById('opt-travelers-6p').textContent = translations[lang].optTravelers6p;
+    document.getElementById('opt-travelers-family').textContent = translations[lang].optTravelersFamily;
+
+    document.getElementById('lbl-ages').innerHTML = `<span class="icon">👶</span> ` + translations[lang].lblAges.replace('👶 ', '');
+    document.getElementById('span-age-adults').textContent = translations[lang].spanAgeAdults;
+    document.getElementById('span-age-children').textContent = translations[lang].spanAgeChildren;
+    document.getElementById('span-age-seniors').textContent = translations[lang].spanAgeSeniors;
+
+    // Category 3 inputs
+    document.getElementById('lbl-accommodation').innerHTML = `<span class="icon">🏨</span> ` + translations[lang].lblAccommodation.replace('🏨 ', '');
+    document.getElementById('chk-stay-airbnb').textContent = translations[lang].chkStayAirbnb;
+    document.getElementById('chk-stay-hostel').textContent = translations[lang].chkStayHostel;
+    document.getElementById('chk-stay-riad').textContent = translations[lang].chkStayRiad;
+    document.getElementById('chk-stay-hotel').textContent = translations[lang].chkStayHotel;
+    document.getElementById('chk-stay-resort').textContent = translations[lang].chkStayResort;
+    document.getElementById('chk-stay-boutique').textContent = translations[lang].chkStayBoutique;
+    document.getElementById('chk-stay-camp').textContent = translations[lang].chkStayCamp;
+
+    document.getElementById('lbl-location').innerHTML = `<span class="icon">📍</span> ` + translations[lang].lblLocation.replace('📍 ', '');
+    document.getElementById('opt-location-placeholder').textContent = translations[lang].optLocationPlaceholder;
+    document.getElementById('opt-location-centre').textContent = translations[lang].optLocationCentre;
+    document.getElementById('opt-location-beach').textContent = translations[lang].optLocationBeach;
+    document.getElementById('opt-location-country').textContent = translations[lang].optLocationCountry;
+    document.getElementById('opt-location-quiet').textContent = translations[lang].optLocationQuiet;
+
+    document.getElementById('lbl-rating').innerHTML = `<span class="icon">⭐</span> ` + translations[lang].lblRating.replace('⭐ ', '');
+    document.getElementById('opt-rating-placeholder').textContent = translations[lang].optRatingPlaceholder;
+    document.getElementById('opt-rating-budget').textContent = translations[lang].optRatingBudget;
+    document.getElementById('opt-rating-3s').textContent = translations[lang].optRating3s;
+    document.getElementById('opt-rating-4s').textContent = translations[lang].optRating4s;
+    document.getElementById('opt-rating-5s').textContent = translations[lang].optRating5s;
+    document.getElementById('opt-rating-ultra').textContent = translations[lang].optRatingUltra;
+
+    document.getElementById('lbl-amenities').innerHTML = `<span class="icon">🏊</span> ` + translations[lang].lblAmenities.replace('🏊 ', '');
+    document.getElementById('chk-amenity-pool').textContent = translations[lang].chkAmenityPool;
+    document.getElementById('chk-amenity-gym').textContent = translations[lang].chkAmenityGym;
+    document.getElementById('chk-amenity-kitchen').textContent = translations[lang].chkAmenityKitchen;
+    document.getElementById('chk-amenity-parking').textContent = translations[lang].chkAmenityParking;
+    document.getElementById('chk-amenity-wifi').textContent = translations[lang].chkAmenityWifi;
+
+    // Category 4 inputs
+    document.getElementById('lbl-budget').innerHTML = `<span class="icon">💰</span> ` + translations[lang].lblBudget.replace('💰 ', '');
+    document.getElementById('lbl-interests').innerHTML = `<span class="icon">❤️</span> ` + translations[lang].lblInterests.replace('❤️ ', '');
+
+    document.getElementById('chk-interest-culture').textContent = translations[lang].chkInterestCulture;
+    document.getElementById('chk-interest-food').textContent = translations[lang].chkInterestFood;
+    document.getElementById('chk-interest-beach').textContent = translations[lang].chkInterestBeach;
+    document.getElementById('chk-interest-hike').textContent = translations[lang].chkInterestHike;
+    document.getElementById('chk-interest-shop').textContent = translations[lang].chkInterestShop;
+    document.getElementById('chk-interest-art').textContent = translations[lang].chkInterestArt;
+    document.getElementById('chk-interest-night').textContent = translations[lang].chkInterestNight;
+    document.getElementById('chk-interest-photo').textContent = translations[lang].chkInterestPhoto;
+    document.getElementById('chk-interest-spa').textContent = translations[lang].chkInterestSpa;
+    document.getElementById('chk-interest-surf').textContent = translations[lang].chkInterestSurf;
+
+    document.getElementById('lbl-style').innerHTML = `<span class="icon">🎭</span> ` + translations[lang].lblStyle.replace('🎭 ', '');
+    document.getElementById('opt-style-placeholder').textContent = translations[lang].optStylePlaceholder;
+    document.getElementById('opt-style-budget').textContent = translations[lang].optStyleBudget;
+    document.getElementById('opt-style-moderate').textContent = translations[lang].optStyleModerate;
+    document.getElementById('opt-style-luxury').textContent = translations[lang].optStyleLuxury;
+    document.getElementById('opt-style-adventure').textContent = translations[lang].optStyleAdventure;
+    document.getElementById('opt-style-culture').textContent = translations[lang].optStyleCulture;
+    document.getElementById('opt-style-beach').textContent = translations[lang].optStyleBeach;
+    document.getElementById('opt-style-food').textContent = translations[lang].optStyleFood;
+
+    document.getElementById('lbl-notes').innerHTML = `<span class="icon">📝</span> ` + translations[lang].lblNotes.replace('📝 ', '');
+    document.getElementById('notes').placeholder = translations[lang].notesPlaceholder;
+
+    document.getElementById('btnPlanText').textContent = translations[lang].btnPlanText;
+    document.getElementById('loadText1').innerHTML = translations[lang].loadText1 + `<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>`;
+    document.getElementById('loadText2').textContent = translations[lang].loadText2;
+
+    document.getElementById('resultHeaderTitle').textContent = translations[lang].resultHeaderTitle;
+    document.getElementById('btnCopy').textContent = translations[lang].btnCopy;
+    document.getElementById('btnNew').textContent = translations[lang].btnNew;
+    document.getElementById('appFooter').textContent = translations[lang].footer;
+
+    updateBudget(document.getElementById('budget').value);
+  }
+
+  function updateBudget(val) {
+    const symbol = currentLang === 'ar' ? ' $' : ' $';
+    document.getElementById('budgetDisplay').textContent = Number(val).toLocaleString() + symbol;
+  }
+
+  function getCheckedValues(containerSelector) {
+    return [...document.querySelectorAll(containerSelector + ' input:checked')]
+      .map(el => {
+        const span = el.nextElementSibling;
+        return span ? span.textContent : el.value;
+      }).join(', ');
+  }
+
+  function showError(msg) {
+    const box = document.getElementById('errorBox');
+    document.getElementById('errorMsg').textContent = msg;
+    box.style.display = 'block';
+    setTimeout(() => box.style.display = 'none', 5000);
+  }
+
+  function renderMarkdown(text) {
+    return text
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+      .replace(/^---$/gm, '<hr>')
+      .replace(/^- (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>\n?)+/g, m => '<ul>' + m + '</ul>')
+      .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/^(?!<[hul]|<block|<hr)(.+)$/gm, '<p>$1</p>')
+      .replace(/<p><\/p>/g, '');
+  }
+
+  async function planTrip() {
+    const origin      = document.getElementById('origin').value.trim();
+    const destination = document.getElementById('destination').value.trim();
+    const duration    = document.getElementById('duration').value;
+    const season      = document.getElementById('season').value;
+    const purpose     = document.getElementById('purpose').value;
+    
+    const travelers   = document.getElementById('travelers').value;
+    const ageGroups   = getCheckedValues('.age-grid');
+
+    const stays       = getCheckedValues('#accommodationContainer');
+    const location    = document.getElementById('location').value;
+    const rating      = document.getElementById('rating').value;
+    const amenities   = getCheckedValues('#amenitiesContainer');
+
+    const budget      = document.getElementById('budget').value;
+    const interests   = getCheckedValues('#interestsContainer');
+    const style       = document.getElementById('style').value;
+    const notes       = document.getElementById('notes').value.trim();
+
+    if (!destination) return showError(translations[currentLang].errorDest);
+    if (!duration)    return showError(translations[currentLang].errorDuration);
+
+    // Hide form area, show loading
+    document.getElementById('planBtn').disabled = true;
+    document.getElementById('loadingSection').style.display = 'block';
+    document.getElementById('resultSection').style.display = 'none';
+    document.getElementById('errorBox').style.display = 'none';
+
+    // Build language-specific instruction
+    let systemRole = "";
+    let localizedPrompt = "";
+
+    if (currentLang === 'ar') {
+      systemRole = `أنت مساعد سفر متطور ومستشار سياحي محترف للغاية. قمت بمحاكاة بحث ويب حي شامل ومسح كامل ومتقدم لشبكة الإنترنت (Web Search & Web Scraping) لاستخراج أدق التفاصيل حول الوجهات والأنشطة والرحلات ومواعيد ومواقع خيارات الإقامة المتعددة الحقيقية المتاحة. صمم لي خطة سفر مثالية بالكامل بناءً على هذه التفاصيل المتكاملة:`;
+      localizedPrompt = `
+✈️ تفاصيل الرحلة الأساسية:
+- منطلق الرحلة: ${origin || 'غير محدد'}
+- الوجهة: ${destination}
+- المدة المطلوبة: ${duration}
+- فترة السفر المفضلة: ${season || 'غير محدد'}
+- الغرض من الرحلة: ${purpose || 'غير محدد'} (مثال: سياحة، شهر عسل، عمل، عائلي)
+
+👥 معلومات المسافرين:
+- عدد المسافرين: ${travelers || 'غير محدد'}
+- الفئات العمرية المتواجدة: ${ageGroups || 'بالغون فقط'}
+
+🏠 تفاصيل ومواصفات السكن المطلوبة:
+- أنواع الإقامة المفضلة (خيارات متعددة): ${stays || 'مرن / أي نوع'} (أمثلة: Airbnb، رياضات Riads، فنادق Hotels، منتجعات Resorts، بيوت شباب Hostels)
+- الموقع المفضل للسكن: ${location || 'غير محدد'} (مثال: وسط المدينة، على البحر، ريفي هادئ)
+- مستوى الجودة والتصنيف النجمي: ${rating || 'مرن / اقتصادي'}
+- الخدمات والتسهيلات الضرورية: ${amenities || 'لا يوجد شروط محددة'} (أمثلة: مسبح، صالة رياضية، مطبخ كامل، موقف سيارات، واي فاي)
+
+💰 الميزانية والاهتمامات:
+- الميزانية المحددة: ~${budget}$ للشخص
+- أسلوب السفر العام: ${style || 'غير محدد'}
+- الاهتمامات الرئيسية للمجموعة: ${interests || 'عامة'}
+- ملاحظات وتفاصيل إضافية خاصة (أوقات وصول، قيود زمنية، برامج ولاء): ${notes || 'لا يوجد'}
+
+⚠️ شروط حاسمة وصارمة جداً لا تقبل المساومة:
+1. **درجات الحرارة والطقس**: يجب تفصيل حالة الطقس المتوقعة وذكر جميع درجات الحرارة **بالدرجة المئوية (Celsius - °C) فقط وحصرياً**. يُمنع منعاً باتاً استخدام الفهرنهايت (Fahrenheit - °F).
+2. **توطين الإقامة الحقيقية**: بناءً على تفضيلات الإقامة المحددة (${stays || 'جميع الأنواع'}) والخدمات المحددة، اقترح بالاسم والموقع **ما لا يقل عن 3 أماكن إقامة حقيقية وموجودة فعلياً** في الوجهة. إن كانت الوجهة المغرب مثلاً وتم اختيار Riads، اذكر أسماء 3 رياضات تقليدية حقيقية مشهورة مع أسعارها التقريبية؛ وإن كان Airbnb اذكر مناطق وتلميحات إقامة وتكاليف.
+3. **التصميم الموجه للغرض والأعمار**: صمم الخطة والبرنامج اليومي ليناسب تماماً الغرض من الرحلة (${purpose}) وأعمار المسافرين (${ageGroups}).
+
+اكتب بأسلوب شيق ومتحمس، بالعربية الفصحى المبسطة مع لمسة عامية خفيفة. استخدم emoji للتنشيط. كن محدداً وواقعياً في التوصيات.`;
+    } else if (currentLang === 'fr') {
+      systemRole = `Vous êtes un concepteur de voyages d'élite et un conseiller en itinéraire hautement sophistiqué. Vous venez de simuler une recherche web en temps réel et un scraping approfondi (Web Search & Web Scraping) pour obtenir les informations les plus fraîches et authentiques. Créez un itinéraire parfait en français basé sur ces informations complètes :`;
+      localizedPrompt = `
+✈️ Informations de Base du Voyage :
+- Origine / Ville de départ : ${origin || 'Non spécifié'}
+- Destination(s) : ${destination}
+- Durée : ${duration}
+- Saison : ${season || 'Non spécifié'}
+- But du voyage : ${purpose || 'Non spécifié'} (ex: tourisme, lune de miel, affaires, famille)
+
+👥 Voyageurs & Âges :
+- Nombre de personnes : ${travelers || 'Non spécifié'}
+- Catégories d'âges : ${ageGroups || 'Adultes seulement'}
+
+🏠 Spécifications de l'Hébergement :
+- Types d'hébergement choisis (multiples) : ${stays || 'Flexible / Tout type'} (ex: Airbnb, Riads Traditionnels, Auberges Hostels, Hôtels, Complexes Resorts)
+- Emplacement préféré : ${location || 'Non spécifié'} (ex: centre-ville, bord de mer, campagne calme)
+- Catégorie & Étoiles : ${rating || 'Flexible'}
+- Commodités obligatoires : ${amenities || 'Aucune spécification'} (ex: piscine, salle de sport, cuisine, parking, Wi-Fi)
+
+💰 Budget & Intérêts :
+- Budget : ~${budget}$ par personne
+- Style de voyage : ${style || 'Non spécifié'}
+- Intérêts principaux : ${interests || 'Général'}
+- Notes spéciales, contraintes & programmes de fidélité : ${notes || 'Aucune'}
+
+⚠️ Exigences Critiques :
+1. **Températures et Météo** : Toutes les données météo doivent être fournies **exclusivement en degrés Celsius (°C)**. Le Fahrenheit (°F) est formellement interdit.
+2. **Hébergements Réels Recommandés** : Proposez **au moins 3 établissements existants et réels** en adéquation avec les préférences (${stays}) et les commodités requises. Donnez leurs vrais noms, localisations et tarifs moyens.
+3. **Itinéraire sur-mesure** : Le planning doit correspondre parfaitement au but du voyage (${purpose}) et aux tranches d'âges (${ageGroups}).
+
+Écrivez dans un style immersif, accueillant et dynamique, en français impeccable avec des emojis.`;
+    } else { // English default
+      systemRole = `You are an elite travel concierge and highly sophisticated trip architect. You have simulated a deep, real-time web search and scraped the internet (Web Search & Web Scraping) to extract the most accurate, authentic, and up-to-date recommendations. Construct the absolute perfect travel plan in English based on these comprehensive details:`;
+      localizedPrompt = `
+✈️ Trip Basics:
+- Origin: ${origin || 'Not specified'}
+- Destination(s): ${destination}
+- Duration: ${duration}
+- Travel Season: ${season || 'Not specified'}
+- Trip Purpose: ${purpose || 'Not specified'} (e.g. leisure, honeymoon, business, family)
+
+👥 Travelers & Age Groups:
+- Number of travelers: ${travelers || 'Not specified'}
+- Age Groups: ${ageGroups || 'Adults'}
+
+🏠 Accommodation Preferences:
+- Preferred Lodgings (Multiple choice): ${stays || 'Flexible / Any type'} (e.g. Airbnb, Hostels, Riads, Hotels, Resorts, Boutique Hotels, Camping)
+- Preferred Location: ${location || 'Not specified'} (e.g. City Centre, Beachfront, Countryside, Quiet residential)
+- Accommodation Rating/Quality: ${rating || 'Flexible'}
+- Must-Have Amenities: ${amenities || 'None specified'} (e.g. Pool, Gym, Full kitchen, Free parking, Wi-Fi)
+
+💰 Budget & Extras:
+- Budget: ~${budget}$ per person
+- Travel Style: ${style || 'Not specified'}
+- Group Interests: ${interests || 'General'}
+- Extra Details (check-in restrictions, loyalty program info, flight timings): ${notes || 'None'}
+
+⚠️ Strict Directives:
+1. **Weather and Temperatures**: All temperatures and weather data must be listed **exclusively in Celsius (°C)**. Fahrenheit (°F) must not be used under any circumstances.
+2. **Specific and Real Accommodations**: Suggest and name **at least 3 actual, real-world, currently active accommodations** (e.g., real traditional Riads in Marrakech, specific highly rated Hostels, or Airbnb locations) in the destination matching the filters (${stays}) and amenities (${amenities}). Include estimated prices and neighborhoods.
+3. **Custom Fit for Purpose & Ages**: Tailor the day-by-day plan directly to the trip purpose (${purpose}) and the travellers' ages (${ageGroups}) to ensure ultimate comfort and enjoyment.
+
+Write in a engaging, inspiring, and friendly tone with emojis to make it lively. Be specific and realistic.`;
+    }
+
+    const fullPrompt = `${systemRole}\n${localizedPrompt}`;
+
+    try {
+      const response = await puter.ai.chat(fullPrompt, {
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2500
+      });
+
+      // Extract text from Puter ChatResponse
+      const text = response?.message?.content?.[0]?.text 
+        || response?.message?.content 
+        || response?.toString?.() 
+        || '';
+
+      // Show result
+      document.getElementById('loadingSection').style.display = 'none';
+      document.getElementById('resultSection').style.display = 'block';
+      document.getElementById('resultBadge').textContent = `${destination} · ${duration}`;
+      document.getElementById('resultBody').innerHTML = renderMarkdown(text);
+
+    } catch (err) {
+      document.getElementById('loadingSection').style.display = 'none';
+      document.getElementById('planBtn').disabled = false;
+      showError(translations[currentLang].errorGen + err.message);
+    }
+  }
+
+  function copyResult() {
+    const text = document.getElementById('resultBody').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('btnCopy');
+      btn.textContent = translations[currentLang].btnCopySuccess;
+      setTimeout(() => btn.textContent = translations[currentLang].btnCopy, 2000);
+    });
+  }
+
+  function newTrip() {
+    document.getElementById('resultSection').style.display = 'none';
+    document.getElementById('planBtn').disabled = false;
+    document.getElementById('origin').value = '';
+    document.getElementById('destination').value = '';
+    document.getElementById('notes').value = '';
+    document.getElementById('location').value = '';
+    document.getElementById('rating').value = '';
+    document.getElementById('purpose').value = '';
+    document.querySelectorAll('.interest-chip input, .multi-chip input, .age-grid input').forEach(el => {
+      if (el.id === 'chk-age-adults') {
+        el.checked = true;
+      } else {
+        el.checked = false;
+      }
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Initialize Language Switcher defaults
+  changeLang('ar');
+</script>
+</body>
+</html>
